@@ -11,7 +11,7 @@ from optflow import viz, flow as flw, util
 def nvidia_optflow(videopath, clusters=4, frame_distance=1, perf_preset=10, display=False):
     cap = cv2.VideoCapture(videopath)
 
-    n_flow = flw.FarnebackFlowIterator(cap, frame_distance=frame_distance, perfPreset=10)
+    n_flow = flw.NvidiaFlowIterator(cap, frame_distance=frame_distance, perfPreset=10)
 
     flows = []
 
