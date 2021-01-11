@@ -11,7 +11,7 @@ from optflow import viz, flow as flw, util
 def nvidia_optflow(videopath, clusters=4, frame_distance=1, perf_preset=10, display=False):
     cap = cv2.VideoCapture(videopath)
 
-    n_flow = flw.NvidiaFlowIterator(cap, frame_distance=frame_distance, perfPreset=10)
+    n_flow = flw.FarnebackFlowIterator(cap, frame_distance=frame_distance, perfPreset=10)
 
     flows = []
 
@@ -23,9 +23,7 @@ def nvidia_optflow(videopath, clusters=4, frame_distance=1, perf_preset=10, disp
 
         if display:
             cv2.imshow('frame', frame)
-            # hsv = viz.flowHSV(flow)
-            # (mag > 0.15 * np.average(mag))
-            cv2.imshow('flow', np.array(mag < 0.30 * np.average(mag), dtype=np.uint8) * 250)
+            cv2.imshow('flow', viz.flowHSV(flow))
         
         flows.append([np.sum(mag), np.average(ang, weights=mag)])
 
